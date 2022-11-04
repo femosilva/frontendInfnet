@@ -2,11 +2,12 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { Column, Text } from 'components'
+import { Column, Row, Text } from 'components'
 
-import { getUser, updateUser } from 'services/user'
+import { updateUser } from 'services/user'
 import { User } from "types";
 import { validationUserUpdate } from "helpers/yup-schemas";
+import styled from "styled-components";
 
 const UpdatePage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<User>({
@@ -19,8 +20,7 @@ const UpdatePage = () => {
     navigate('/')
   }
   return (
-    <Column>
-      <Link to={'/'}>Voltar</Link>
+    <Box my='5%' mx='10%'>
       <Text variant='big' color='black'>Editar usuario</Text>
       <form onSubmit={handleSubmit(handleUpdate)}>
         <Text variant='regular' color='black'>Nome</Text>
@@ -35,11 +35,20 @@ const UpdatePage = () => {
         <input type="email" {...register("email")} />
         <Text variant='small' color='red'>{errors.email?.message}</Text>
 
-        <button type="submit">Enviar</button>
+        <Row justifyContent='space-between'>
+          <Link to={'/'}>Voltar</Link>
+          <button type="submit">Enviar</button>
+        </Row>
       </form>
-    </Column>
+    </Box>
   )
 }
+const Box = styled(Column)`
+  padding: 15px;
+  width: 280px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 8px;
+`
 export default UpdatePage
 
 

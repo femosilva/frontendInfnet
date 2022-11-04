@@ -29,11 +29,11 @@ const Home = () => {
 
   return (
     <Fragment>
-      <Row>
+      <Row my='5%' mx='10%'>
         {users?.map((user, index) => (
           <Box key={index} mr='16px'>
-            <Text variant='regular'>{user.name} {user.lastName}</Text>
-            <Text variant='regular'>{user.email}</Text>
+            <Text variant='regular'>Nome: {user.name} {user.lastName}</Text>
+            <Text variant='regular'>Email: {user.email}</Text>
             <Row justifyContent='space-between'>
               <Link to={{ pathname: `/edit/${user._id}` }}>Editar</Link>
               <button onClick={() => handleDelete(user._id)}>Excluir</button>
@@ -41,18 +41,24 @@ const Home = () => {
           </Box>
         ))}
       </Row>
-      <Column>
+      <Box mx='10%'>
         <Text variant='big' color='black'>Criar usuario</Text>
         <form onSubmit={handleSubmit(handleCreate)}>
-          <input type="text" {...register("name")} />
-          <Text variant='small' color='red'>{errors.name?.message}</Text>
-          <input type="text" {...register("lastName")} />
-          <Text variant='small' color='red'>{errors.lastName?.message}</Text>
-          <input type="email" {...register("email")} />
-          <Text variant='small' color='red'>{errors.email?.message}</Text>
-          <button type="submit">Enviar</button>
+        <Text variant='regular' color='black'>Nome</Text>
+        <input type="text" {...register("name")} />
+        <Text variant='small' color='red'>{errors.name?.message}</Text>
+
+        <Text variant='regular' color='black'>Sobrenome</Text>
+        <input type="text" {...register("lastName")} />
+        <Text variant='small' color='red'>{errors.lastName?.message}</Text>
+
+        <Text variant='regular' color='black'>Email</Text>
+        <input type="email" {...register("email")} />
+        <Text variant='small' color='red'>{errors.email?.message}</Text>
+
+        <button type="submit">Enviar</button>
         </form>
-      </Column>
+      </Box>
     </Fragment>
   )
 }
